@@ -13,6 +13,134 @@
 
 </head>
 <body>
+    <!-- Task planner form -->
+    <div class="container" id="taskPlannerForm"> 
+        <form>
+            <!-- Person who created the task name input  -->
+            <div class="form-group">
+              <label for="inputAssignedBy">Assigned By</label>
+              <input name = "assignedBy" type="text" class="form-control" id="inputAssignedBy" placeholder="Name of person assigning the task">
+            </div>
+            <!-- Description of task input -->
+            <div class="form-group">
+                <label for="inputDesc">Description</label>
+                <input name="description" type="text" class="form-control" id="inputDesc" placeholder="A short description of the task being set">
+            </div>
+            <!-- Person the task is assigned to input -->
+            <div class="form-group">
+                <label for="inputAssignedTo">Assigned To</label>
+                <input name="assignedTo" type="text" class="form-control" id="inputAssignedTo" placeholder="Name of person the task is being assigned to">
+            </div>
+            <!-- Due date input -->
+            <div class="form-group">
+                <label for="inputDueDate">Due Date</label>
+                <input name="dueDate" type="date" class="form-control" id="inputDueDate">
+            </div>
+            <!-- Task status drop down -->
+            <div class="form-group">
+                <label for="inputStatus">Status</label>
+                <select name="status" id="inputStatus" class="form-control">
+                    <option value="to do">TODO</option>
+                    <option value="in progress">In Progress</option>
+                    <option value="review">Review</option>
+                    <option value="completed">Completed</option>
+                    
+                </select>
+            </div>
+            <!-- Button to submit the input data -->
+            <button id="storeTaskBtn" type="button" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+    <div class="container">
+        <div class="row" id="taskCards">
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action ">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Task</h5>
+                        <small>3 days ago</small>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assigned By</h5>
+                      </div>
+                      <p class="mb-1">Nathan</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Description</h5>
+                      </div>
+                      <p class="mb-1">Task 1</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assigned To</h5>
+                      </div>
+                      <p class="mb-1">Tyreece</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Due Date</h5>
+                      </div>
+                      <p class="mb-1">17/05/2021</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Status</h5>
+                      </div>
+                      <p class="mb-1">In progress</p>
+                    </a>
+                    
+                  </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action ">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Task</h5>
+                        <small>3 days ago</small>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assigned By</h5>
+                      </div>
+                      <p class="mb-1">Grace</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Description</h5>
+                      </div>
+                      <p class="mb-1">Task 2</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assigned To</h5>
+                      </div>
+                      <p class="mb-1">Nathan</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Due Date</h5>
+                      </div>
+                      <p class="mb-1">17/05/2021</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Status</h5>
+                      </div>
+                      <p class="mb-1">In progress</p>
+                    </a>
+                    
+                  </div>
+            </div>
+        </div>
+    </div>
+    
     
 
 
