@@ -15,42 +15,76 @@
 <body>
     <!-- Task planner form -->
     <div class="container" id="taskPlannerForm"> 
-        <form>
-            <!-- Person who created the task name input  -->
-            <div class="form-group">
-              <label for="inputAssignedBy">Assigned By</label>
-              <input name = "assignedBy" type="text" class="form-control" id="inputAssignedBy" placeholder="Name of person assigning the task">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <form>
+                    <!-- Person who created the task name input  -->
+                    <div class="form-group">
+                      <label for="inputAssignedBy">Assigned By</label>
+                      <input name = "assignedBy" type="text" class="form-control" id="inputAssignedBy" placeholder="Name of person assigning the task">
+                    </div>
+                    <!-- Description of task input -->
+                    <div class="form-group">
+                        <label for="inputDesc">Description</label>
+                        <input name="description" type="text" class="form-control" id="inputDesc" placeholder="A short description of the task being set">
+                    </div>
+                    <!-- Person the task is assigned to input -->
+                    <div class="form-group">
+                        <label for="inputAssignedTo">Assigned To</label>
+                        <input name="assignedTo" type="text" class="form-control" id="inputAssignedTo" placeholder="Name of person the task is being assigned to">
+                    </div>
+                    <!-- Due date input -->
+                    <div class="form-group">
+                        <label for="inputDueDate">Due Date</label>
+                        <input name="dueDate" type="date" class="form-control" id="inputDueDate">
+                    </div>
+                    <!-- Task status drop down -->
+                    <div class="form-group">
+                        <label for="inputStatus">Status</label>
+                        <select name="status" id="inputStatus" class="form-control">
+                            <option value="To Do">TODO</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Review">Review</option>
+                            <option value="Completed">Completed</option>
+                            
+                        </select>
+                    </div>
+                    <!-- Button to submit the input data -->
+                    <button id="storeTaskBtn" type="button" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <!-- Description of task input -->
-            <div class="form-group">
-                <label for="inputDesc">Description</label>
-                <input name="description" type="text" class="form-control" id="inputDesc" placeholder="A short description of the task being set">
+
+            <div class="col-12 col-lg-6" >
+                <div class="list-group" id="taskSummaryCard">
+                    <div href="#" class="list-group-item list-group-item-action ">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                      </div>
+                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <small>Donec id elit non mi porta.</small>
+                    </div>
+                    <div href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                      </div>
+                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <small class="text-muted">Donec id elit non mi porta.</small>
+                    </div>
+                    <div href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                      </div>
+                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <small class="text-muted">Donec id elit non mi porta.</small>
+                    </div>
+                  </div>
             </div>
-            <!-- Person the task is assigned to input -->
-            <div class="form-group">
-                <label for="inputAssignedTo">Assigned To</label>
-                <input name="assignedTo" type="text" class="form-control" id="inputAssignedTo" placeholder="Name of person the task is being assigned to">
-            </div>
-            <!-- Due date input -->
-            <div class="form-group">
-                <label for="inputDueDate">Due Date</label>
-                <input name="dueDate" type="date" class="form-control" id="inputDueDate">
-            </div>
-            <!-- Task status drop down -->
-            <div class="form-group">
-                <label for="inputStatus">Status</label>
-                <select name="status" id="inputStatus" class="form-control">
-                    <option value="To Do">TODO</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Review">Review</option>
-                    <option value="Completed">Completed</option>
-                    
-                </select>
-            </div>
-            <!-- Button to submit the input data -->
-            <button id="storeTaskBtn" type="button" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
     </div>
+
 
 
     <div class="container">

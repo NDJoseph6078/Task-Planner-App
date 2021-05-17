@@ -7,7 +7,9 @@ document.querySelector('#storeTaskBtn').addEventListener('click', function () {
    let dueDate = document.querySelector('#inputDueDate').value.trim();
    let status = document.querySelector('#inputStatus').value.trim();
 
+
    if (isObjectEmpty(validateTaskForm(assignedBy, description, assignedTo, dueDate))){
+    createTaskSummary(assignedTo, dueDate, status) //Runs a function that adds a summary card when you press the button to add the input
     createTaskCard(assignedBy, description, assignedTo, dueDate, status);  
    } else{
     console.log("Card cannot be created as a field is empty or formatted incorrectly");
@@ -105,6 +107,17 @@ function validateTaskForm(assignedBy, description, assignedTo, dueDate){
     
 };
 
+
+function createTaskSummary(assignedTo, dueDate, status){
+    summaryCard = document.getElementById("taskSummaryCard");
+    summaryCard.innerHTML += `<a href="#" class="list-group-item list-group-item-action ">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Task for ${assignedTo}</h5>
+      <small>Due ${dueDate}</small>
+    </div>
+    <p class="mb-1">${status}</p>
+  </a>`
+}
 
 
 // let taskArray = [];
