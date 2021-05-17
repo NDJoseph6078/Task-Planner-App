@@ -10,7 +10,7 @@ document.querySelector('#storeTaskBtn').addEventListener('click', function () {
    if (isObjectEmpty(validateTaskForm(assignedBy, description, assignedTo, dueDate))){
     createTaskCard(assignedBy, description, assignedTo, dueDate, status);  
    } else{
-    console.log("test");
+    console.log("Card cannot be created as a field is empty or formatted incorrectly");
    }
    
 
@@ -76,11 +76,13 @@ function createTaskCard(assignedBy, description, assignedTo, dueDate, status){
 
 };
 
+// Function that checks an if an object is empty by checking the length of an array of the object's eys
 function isObjectEmpty(obj){
     console.log(Object.keys(obj));
     return Object.keys(obj).length === 0;
 }
 
+// Validates the inputs by checking if they have unwanted characters in them or if they are of the correct length
 function validateTaskForm(assignedBy, description, assignedTo, dueDate){
     const errors = {};
     const specialChars = /[`!@#£$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
