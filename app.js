@@ -1,37 +1,46 @@
+if (!localStorage.getItem("taskArray")){
+  localStorage.setItem("taskArray", "[]")
+}
+
+
+
+
 // // Function that gets the user details input in the form when the button with the id of storeTaskBtn is clicked
 document.querySelector('#storeTaskBtn').addEventListener('click', function () {
-    
-   let assignedBy = document.querySelector('#inputAssignedBy').value.trim();
-   let description = document.querySelector('#inputDesc').value.trim();
-   let assignedTo = document.querySelector('#inputAssignedTo').value.trim();
-   let dueDate = document.querySelector('#inputDueDate').value.trim();
-   let status = document.querySelector('#inputStatus').value.trim();
+  let assignedBy = document.querySelector('#inputAssignedBy').value.trim();
+  let description = document.querySelector('#inputDesc').value.trim();
+  let assignedTo = document.querySelector('#inputAssignedTo').value.trim();
+  let dueDate = document.querySelector('#inputDueDate').value.trim();
+  dueDate = (new Date(dueDate)).toLocaleDateString();
+  let status = document.querySelector('#inputStatus').value.trim();
 
-
-   if (isObjectEmpty(validateTaskForm(assignedBy, description, assignedTo, dueDate))){
-    createTaskSummary(assignedTo, dueDate, status) //Runs a function that adds a summary card when you press the button to add the input
-    createTaskCard(assignedBy, description, assignedTo, dueDate, status);  
-   } else{
+  if (isObjectEmpty(validateTaskForm(assignedBy, description, assignedTo, dueDate))){
+    storeTaskDetails(assignedBy, description, assignedTo, dueDate, status); 
+  } else{
     console.log("Card cannot be created as a field is empty or formatted incorrectly");
-   }
+  }
    
-
-//    storeTaskDetails(assignedBy, description, assignedTo, dueDate, status)
+  location.reload();
 });
 
-// // Function to store the details input by the user as a task input
-// function storeTaskDetails(assignedBy, description, assignedTo, dueDate, status){
-//     let taskObject = {
-//         "Assigned By": assignedBy,
-//         "Description": description,
-//         "Assigned To": assignedTo,
-//         "Due Date": dueDate,
-//         "Status": status,
-//     }; 
-//     taskArray.push(taskObject)
-//     localStorage.setItem("TasksSetArray", JSON.stringify(taskArray))
-// };
+// Function to store the details input by the user as a task input
+function storeTaskDetails(assignedBy, description, assignedTo, dueDate, status){
+    let taskObject = new Task(assignedBy, description, assignedTo, dueDate, status);
+    let taskArray = JSON.parse(localStorage.getItem("taskArray"));
+    taskArray.push(taskObject);
+    localStorage.setItem("taskArray", JSON.stringify(taskArray));
+};
 
+class Task {
+  constructor (assignedBy, description, assignedTo, dueDate, status){
+    this.taskAssignedBy = assignedBy;
+    this.taskDescription = description;
+    this.taskAssignedTo = assignedTo;
+    this.taskDueDate = dueDate;
+    this.taskStatus = status;
+  }
+
+}
 
 function createTaskCard(assignedBy, description, assignedTo, dueDate, status){
     taskCard = document.getElementById("taskCards");
@@ -119,6 +128,15 @@ function createTaskSummary(assignedTo, dueDate, status){
   </a>`
 }
 
+function displayCards(){
+  let list = JSON.parse(localStorage.getItem("taskArray"));
+  for (i in list){
+    createTaskSummary(list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus);
+    createTaskCard(list[i].taskAssignedBy, list[i].taskDescription, list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus);
+  }
+}
+
+displayCards()
 
 // let taskArray = [];
 
