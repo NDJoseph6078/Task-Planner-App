@@ -1,3 +1,4 @@
+// Checks if the key taskArray in local storage has any value in it, if not it sets the value for taskArray to '[]' which when converted back using JSON.parse translates to an empty array
 if (!localStorage.getItem("taskArray")){
   localStorage.setItem("taskArray", "[]")
 }
@@ -14,16 +15,17 @@ document.querySelector('#storeTaskBtn').addEventListener('click', function () {
   dueDate = (new Date(dueDate)).toLocaleDateString();
   let status = document.querySelector('#inputStatus').value.trim();
 
+  //Checks if the an array of the object's keys is empty, in this case this is useful for the checking the 'error' object that is returned from the validateTaskForm function because if the array is empty it means the user data input did that did not engage with any of the conditions within the validateTaskForm function meaning that the data input was formatted correctly. 
   if (isObjectEmpty(validateTaskForm(assignedBy, description, assignedTo, dueDate))){
     storeTaskDetails(assignedBy, description, assignedTo, dueDate, status); 
+    location.reload(); //Forces the page to reload
   } else{
     console.log("Card cannot be created as a field is empty or formatted incorrectly");
   }
    
-  location.reload();
 });
 
-// Function to store the details input by the user as a task input
+// Function to store the details input by the user in local storage for it to later be used
 function storeTaskDetails(assignedBy, description, assignedTo, dueDate, status){
     let taskObject = new Task(assignedBy, description, assignedTo, dueDate, status);
     let taskArray = JSON.parse(localStorage.getItem("taskArray"));
@@ -42,6 +44,7 @@ class Task {
 
 }
 
+// Function that creates the individual cards under the form
 function createTaskCard(assignedBy, description, assignedTo, dueDate, status){
     taskCard = document.getElementById("taskCards");
     taskCard.innerHTML += ` <div class="col-12 col-sm-6 col-lg-4">
@@ -87,7 +90,7 @@ function createTaskCard(assignedBy, description, assignedTo, dueDate, status){
 
 };
 
-// Function that checks an if an object is empty by checking the length of an array of the object's eys
+// Function that checks an if an object is empty by checking the length of an array of the object's keys
 function isObjectEmpty(obj){
     console.log(Object.keys(obj));
     return Object.keys(obj).length === 0;
@@ -95,10 +98,10 @@ function isObjectEmpty(obj){
 
 // Validates the inputs by checking if they have unwanted characters in them or if they are of the correct length
 function validateTaskForm(assignedBy, description, assignedTo, dueDate){
-    const errors = {};
-    const specialChars = /[`!@#£$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    const numberList = /[1234567890]/;
-    const dateFormat =/[dmy]/ 
+    const errors = {}; //Error object which gets data added to it if any of the inputs meet this onditons 
+    const specialChars = /[`!@#£$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/; //Creates a regular expression literal with all the special characters in it
+    const numberList = /[1234567890]/; //Creates a regular expression literal with all the numbers in it
+    const dateFormat =/[dmy]/ //Creates a regular expression literal with the letters 'd', 'm', and 'y' in it because the date input when no date is selected changes to dd/mm/yyyy
     if ((assignedBy.length > 20) || (assignedBy.length < 1) || (specialChars.test(assignedBy) == true) || (numberList.test(assignedBy) == true)) {
         errors["Assigned By"] = "The length of this input has to be between 1 and 20 characters, and have no special characters ";
     };
@@ -112,11 +115,11 @@ function validateTaskForm(assignedBy, description, assignedTo, dueDate){
         errors["Due Date"] = "The Date has no been formatted correctly";
     };
     console.log(errors);
-    return errors;
+    return errors; //returns the error object so it can be used to check if the validation was successful
     
 };
 
-
+// Creates a summarry card using the data stored in local storage
 function createTaskSummary(assignedTo, dueDate, status){
     summaryCard = document.getElementById("taskSummaryCard");
     summaryCard.innerHTML += `<a href="#" class="list-group-item list-group-item-action ">
@@ -128,6 +131,7 @@ function createTaskSummary(assignedTo, dueDate, status){
   </a>`
 }
 
+// Iterates over the the value for the key 'taskArray' after it's converted from a string into an array and then runs the 'createTaskSummary' and 'createTaskCard' functions with the the sliced array values passed through the function 
 function displayCards(){
   let list = JSON.parse(localStorage.getItem("taskArray"));
   for (i in list){
@@ -136,8 +140,4 @@ function displayCards(){
   }
 }
 
-displayCards()
-
-// let taskArray = [];
-
-// let arrayRequest = localStorage.getItem("TasksSetArray");
+displayCards() //Calls the displayCards function so that anything in local storage under the key 'taskArray' with be presented on the web page as the in the form of the respective cards when the page loads.
