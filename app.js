@@ -35,7 +35,7 @@ document.querySelector('#storeTaskBtn').addEventListener('click', function () {
     let errorMessages = (validateTaskForm(assignedBy, description, assignedTo, dueDate));
     let errorString = `Error:  `
     for (i in errorMessages){
-      errorString += `${errorMessages[i]} \n`;
+      errorString += `\n ${errorMessages[i]}`;
       console.log(errorMessages[i]);
     }
     alert(errorString);
@@ -248,17 +248,17 @@ function validateTaskForm(assignedBy, description, assignedTo, dueDate){
     const numberList = /[1234567890]/; //Creates a regular expression literal with all the numbers in it
     const dateFormat =/[dmy]/ //Creates a regular expression literal with the letters 'd', 'm', and 'y' in it because the date input when no date is selected changes to dd/mm/yyyy
     console.log(assignedBy, description, assignedTo, dueDate)
-    if ((assignedBy.length > 20) || (assignedBy.length < 1) || (specialChars.test(assignedBy) == true) || (numberList.test(assignedBy) == true)) {
-        errors["Assigned By"] = "The length of this input has to be between 1 and 20 characters, and have no special characters ";
+    if ((assignedBy.length > 20) || (assignedBy.length < 1) || (specialChars.test(assignedBy) === true) || (numberList.test(assignedBy) == true)) {
+        errors["Assigned By"] = "The length of the 'AssignedBy' input has to be between 1 and 20 characters, and have no special characters.";
     };
-    if ((description.length < 1) || (specialChars.test(description) == true)) {
-        errors["Description"] = "The length of this input has to be between 1 and 20 characters, and have no special characters";
+    if ((description.length < 3) || (specialChars.test(description) === true)) {
+        errors["Description"] = "The length of this 'description input is has to be greater than 3 characters long, and have no special characters.";
     };
-    if ((assignedTo.length > 20) || (assignedTo.length < 1) || (specialChars.test(assignedTo) == true) || (numberList.test(assignedTo) == true)) {
-        errors["Assigned To"] = "The length of this input has to be between 1 and 20 characters, and have no special characters";
+    if ((assignedTo.length > 20) || (assignedTo.length < 1) || (specialChars.test(assignedTo) === true) || (numberList.test(assignedTo) == true)) {
+        errors["Assigned To"] = "The length of the 'AssignedTo' input has to be between 1 and 20 characters, and have no special characters.";
     };
-    if (dueDate.length < 10) {
-        errors["Due Date"] = "The Date has no been formatted correctly";
+    if ((dueDate.length < 10) || (dateFormat.test(dueDate) === true)) {
+        errors["Due Date"] = "The Date has not been formatted correctly.";
     };
     console.log(errors);
     return errors; //returns the error object so it can be used to check if the validation was successful
