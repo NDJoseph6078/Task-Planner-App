@@ -4,33 +4,23 @@ let assignedToInput = document.querySelector('#inputAssignedTo');
 let dueDateInput = document.querySelector('#inputDueDate');
 let statusInput = document.querySelector('#inputStatus');
 
-console.log(assignedByInput, descriptionInput, assignedToInput, dueDateInput, statusInput)
-// Checks if the key 'taskArray' in local storage has any value in it, if not it sets the value for taskArray to '[]' which when converted back using JSON.parse translates to an empty array
-if (!localStorage.getItem("taskArray")){
-  localStorage.setItem("taskArray", "[]")
-}
-// Checks if the key 'counter' in local storage has any value in it, if not it sets the value for taskarray to '0' which is later converted to an integer so that the counter can be incremented and then set as the taskID for the current object before being store and updating the counter.
-// It also sets counter to 0 if all the tasks in the taskArray are deleted
-if ((!localStorage.getItem("counter")) || (localStorage.getItem("taskArray")==="[]")) {
-  localStorage.setItem("counter", "0")
-}
-
-
+console.log(assignedByInput, descriptionInput, assignedToInput, dueDateInput, statusInput);
 
 // // Function that gets the user details input in the form when the button with the id of storeTaskBtn is clicked
 document.querySelector('#storeTaskBtn').addEventListener('click', function () {
-  assignedBy = assignedByInput.value
-  description = descriptionInput.value
-  assignedTo = assignedToInput.value
-  dueDate = dueDateInput.value
+  let assignedBy = assignedByInput.value
+  let description = descriptionInput.value
+  let assignedTo = assignedToInput.value
+  let dueDate = dueDateInput.value
   dueDate = (new Date(dueDate)).toLocaleDateString();
-  status = statusInput.value
+  let status = statusInput.value
 
 
   
   //Checks if the an array of the object's keys is empty, in this case this is useful for the checking the 'error' object that is returned from the validateTaskForm function because if the array is empty it means the user data input did that did not engage with any of the conditions within the validateTaskForm function meaning that the data input was formatted correctly. 
   if (isObjectEmpty(validateTaskForm(assignedBy, description, assignedTo, dueDate))){
-    taskManager.addTask(assignedBy, description, assignedTo, dueDate);
+    taskManager.addTask(assignedBy, description, assignedTo, dueDate, status);
+    clearInputBoxes(); //Clears the input boxes on the form when someone when a task is sucessfuly added
   } else{
     let errorMessages = (validateTaskForm(assignedBy, description, assignedTo, dueDate));
     let errorString = `Error:  `
@@ -39,8 +29,8 @@ document.querySelector('#storeTaskBtn').addEventListener('click', function () {
       console.log(errorMessages[i]);
     }
     alert(errorString);
-    // console.log("Card cannot be created as a field is empty or formatted incorrectly");
-  }
+  };
+  
    
 });
 
@@ -72,30 +62,22 @@ taskManager = {
   taskList : [],
   taskID : 0,
 
-  getAllTasks(){
-    
-  },
 
-  addTask(){
+  addTask(assignedBy, description, assignedTo, dueDate, status){
     let taskObject = new Task(assignedBy, description, assignedTo, dueDate, status);
-    taskManager.taskList.push(taskObject);
-    taskManager.taskID++
-    taskManager.updateLocalStorage()
-    taskManager.displayCards();
-
+    this.taskList.push(taskObject);
+    this.taskID++;
+    this.updateLocalStorage();
+    this.displayCards();
+    console.log(this.taskList)
   },
 
   deleteTask(taskID){
-    taskManager.taskList.splice(taskManager.findID(taskID),1);
-    taskManager.updateLocalStorage();
-    taskManager.displayCards();
-    console.log(taskManager.taskList)
-    console.log(typeof(taskManager.taskList))
-    
-    // Resets the value of the counter in local storage to "0" if the object taskManager.taskList is empty
-    if (isObjectEmpty(taskManager.taskList)){
-      localStorage.setItem("counter", "0");
-    }
+    this.taskList.splice(this.findID(taskID),1);
+    this.updateLocalStorage();
+    this.displayCards();
+    console.log(this.taskList);
+    console.log(i);
   },
 
   updateTaskStatus(taskID, status){
@@ -103,26 +85,39 @@ taskManager = {
   },
   // A method that finds the index for the key taskID in the taskArray
   findID(targetID){
-    for (i in taskManager.taskList){
-      if (taskManager.taskList[i].taskID === targetID){
+    for (i in this.taskList){
+      if (this.taskList[i].taskID === targetID){
+        console.log(`The target id is ${targetID}`)
+        console.log(taskManager.taskList[i].taskID);
+        console.log(i);
         return i //Returns the index of my target id
       };
     };
   },
 
   updateLocalStorage() {
-    localStorage.setItem("taskArray", JSON.stringify(taskManager.taskList));
-    localStorage.setItem("counter", JSON.stringify(taskManager.taskID));
+    localStorage.setItem("taskArray", JSON.stringify(this.taskList));
+    localStorage.setItem("counter", JSON.stringify(this.taskID));
   },
 
   displayCards(){
-    let list = taskManager.taskList;
+    // Checks if the key 'taskArray' in local storage has any value in it, if not it sets the value for taskArray to '[]' which when converted back using JSON.parse translates to an empty array
+    if (!localStorage.getItem("taskArray")){
+      localStorage.setItem("taskArray", "[]")
+    }
+    // Checks if the key 'counter' in local storage has any value in it, if not it sets the value for taskarray to '0' which is later converted to an integer so that the counter can be incremented and then set as the taskID for the current object before being store and updating the counter.
+    // It also sets counter to 0 if all the tasks in the taskArray are deleted
+    if ((!localStorage.getItem("counter")) || (localStorage.getItem("taskArray")==="[]")) {
+      localStorage.setItem("counter", "0")
+      this.taskID = 0; //Resets the task ID to zero so that if the user adds another item straigh
+    }
+
+    let list = this.taskList;
     document.getElementById("taskCards").innerHTML = "";
     document.getElementById("taskSummaryCard").innerHTML = "";
-    console.log(document.getElementById("taskSummaryCard"));
     for (i in list){
-      taskManager.createTaskSummary(list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus, list[i].taskID);
-      taskManager.createTaskCard(list[i].taskAssignedBy, list[i].taskDescription, list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus, list[i].taskID);
+      this.createTaskSummary(list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus, list[i].taskID);
+      this.createTaskCard(list[i].taskAssignedBy, list[i].taskDescription, list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus, list[i].taskID);
     };
   },
 
@@ -184,62 +179,21 @@ taskManager = {
   </a>`;
   }
 
-}
+};
 
-
-
-// function createTaskCard(assignedBy, description, assignedTo, dueDate, status, taskId){
-//     taskCard = document.getElementById("taskCards");
-//     taskCard.innerHTML += ` <div class="col-12 col-sm-6 col-lg-4" id="taskID-${taskId}">
-//     <div class="list-group">
-//         <div  class="list-group-item list-group-item-action ">
-//           <div class="d-flex w-100 justify-content-between">
-//             <h5 class="mb-1">Task</h5>
-//             <small>3 days ago</small>
-//           </div>
-//         </div>
-//         <div  class="list-group-item list-group-item-action">
-//           <div class="d-flex w-100 justify-content-between">
-//             <h5 class="mb-1">Assigned By</h5>
-//           </div>
-//           <p class="mb-1">${assignedBy}</p>
-//         </div>
-//         <div  class="list-group-item list-group-item-action">
-//           <div class="d-flex w-100 justify-content-between">
-//             <h5 class="mb-1">Description</h5>
-//           </div>
-//           <p class="mb-1">${description}</p>
-//         </div>
-//         <div  class="list-group-item list-group-item-action">
-//           <div class="d-flex w-100 justify-content-between">
-//             <h5 class="mb-1">Assigned To</h5>
-//           </div>
-//           <p class="mb-1">${assignedTo}</p>
-//         </div>
-//         <div  class="list-group-item list-group-item-action">
-//           <div class="d-flex w-100 justify-content-between">
-//             <h5 class="mb-1">Due Date</h5>
-//           </div>
-//           <p class="mb-1">${dueDate}</p>
-//         </div>
-//         <div  class="list-group-item list-group-item-action">
-//           <div class="d-flex w-100 justify-content-between">
-//             <h5 class="mb-1">Status</h5>
-//           </div>
-//           <p class="mb-1">${status}</p>
-//         </div>
-//         <button class=""btn btn-danger" id="deleteTaskBtn">Delete task</button>
-
-        
-//       </div>`;
-
-// };
+// A function to clear the input boxes on the form
+function clearInputBoxes(){
+  assignedByInput.value = null
+  descriptionInput.value = null
+  assignedToInput.value = null
+  dueDateInput.value = null
+};
 
 // Function that checks an if an object is empty by checking the length of an array of the object's keys
 function isObjectEmpty(obj){
     console.log(Object.keys(obj));
     return Object.keys(obj).length === 0;
-}
+};
 
 // Validates the inputs by checking if they have unwanted characters in them or if they are of the correct length
 function validateTaskForm(assignedBy, description, assignedTo, dueDate){
