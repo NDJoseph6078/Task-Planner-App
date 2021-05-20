@@ -70,6 +70,7 @@ taskManager = {
     this.updateLocalStorage();
     this.displayCards();
     console.log(this.taskList)
+    console.log(`Task added`)
   },
 
   deleteTask(taskID){
@@ -80,7 +81,7 @@ taskManager = {
     console.log(i);
   },
 
-  updateTaskStatus(taskID, status){
+  updateTask(taskID, status){
 
   },
   // A method that finds the index for the key taskID in the taskArray
@@ -113,9 +114,17 @@ taskManager = {
     }
 
     let list = this.taskList;
-    document.getElementById("taskCards").innerHTML = "";
+    console.log(list)
+    
+    document.getElementById("ToDo").innerHTML = "";
+    document.getElementById("InProgress").innerHTML = "";
+    document.getElementById("Review").innerHTML = "";
+    document.getElementById("Completed").innerHTML = "";
+    // document.getElementById((list[i].taskStatus)).innerHTML = "";
     document.getElementById("taskSummaryCard").innerHTML = "";
     for (i in list){
+      console.log(list[i].taskStatus)
+      
       this.createTaskSummary(list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus, list[i].taskID);
       this.createTaskCard(list[i].taskAssignedBy, list[i].taskDescription, list[i].taskAssignedTo, list[i].taskDueDate, list[i].taskStatus, list[i].taskID);
     };
@@ -123,8 +132,8 @@ taskManager = {
 
   // A method that creates the individual cards under the form
   createTaskCard(assignedBy, description, assignedTo, dueDate, status, taskId){
-    taskCard = document.getElementById("taskCards");
-    taskCard.innerHTML += ` <div class="col-12 col-sm-6 col-lg-4" id="taskID-${taskId}">
+    taskCard = document.getElementById(`${status}`);
+    taskCard.innerHTML += ` <div class="col-12 " id="taskID-${taskId}">
     <div class="list-group">
         <div  class="list-group-item list-group-item-action ">
           <div class="d-flex w-100 justify-content-between">
@@ -220,10 +229,8 @@ function validateTaskForm(assignedBy, description, assignedTo, dueDate){
 };
 
 
-taskManager.taskList = JSON.parse(localStorage.getItem("taskArray"));
-localStorage.setItem("taskArray", JSON.stringify(taskManager.taskList));
-taskManager.taskID = JSON.parse(localStorage.getItem("counter"));
-localStorage.setItem("counter", (taskManager.taskID)) //updates the counter to the incremented value
+taskManager.taskList = JSON.parse(localStorage.getItem("taskArray")) || [];
+taskManager.taskID = JSON.parse(localStorage.getItem("counter")) || 0;
 
 
 

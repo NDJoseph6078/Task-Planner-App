@@ -42,8 +42,8 @@
                     <div class="form-group">
                         <label for="inputStatus">Status</label>
                         <select name="status" id="inputStatus" class="form-control">
-                            <option value="To Do">TODO</option>
-                            <option value="In Progress">In Progress</option>
+                            <option value="ToDo">TODO</option>
+                            <option value="InProgress">In Progress</option>
                             <option value="Review">Review</option>
                             <option value="Completed">Completed</option>
                             
@@ -62,17 +62,29 @@
         </div>
     </div>
 
-
-
     <div class="container">
-        <h1>Current Tasks</h1>
-        <div class="row" id="taskCards">
+        <h1>Task sections</h1>
+        <div class="row">
+            
+            <div class="col-lg-3 col=md-6 col-12" id="ToDo">
+                <h2>To Do</h2>
+            </div>
+            
+            <div class="col-lg-3 col=md-6 col-12" id="InProgress">
+                <h2>In progress</h2>
+                
+            </div>
+            
+            <div class="col-lg-3 col=md-6 col-12" id="Review">
+                <h2>Under review</h2>
+            </div>
+            
+            <div class="col-lg-3 col=md-6 col-12" id="Completed">
+                <h2>Completed</h2>
+            </div>
           <!-- Where the task cards will go -->
         </div>
     </div>
-    
-    
-
 
 
     <!-- Link  to js file-->
