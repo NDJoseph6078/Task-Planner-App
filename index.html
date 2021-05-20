@@ -51,6 +51,7 @@
                     </div>
                     <!-- Button to submit the input data -->
                     <button id="storeTaskBtn" type="button" class="btn btn-primary">Submit</button>
+                    <button id="editTaskBtn" type="button" class="btn btn-secondary" hidden>Edit</button>
                 </form>
             </div>
 
@@ -66,23 +67,36 @@
         <h1>Task sections</h1>
         <div class="row">
             
-            <div class="col-lg-3 col=md-6 col-12" id="ToDo">
+            <div class="col-lg-3 col=md-6 col-12" id="ToDoTaskSection">
                 <h2>To Do</h2>
-            </div>
+                <div id="ToDo">
+                    <!-- Where the tasks with the ToDo status will go -->
+                </div>
+            </div> 
+
             
-            <div class="col-lg-3 col=md-6 col-12" id="InProgress">
+            <div class="col-lg-3 col=md-6 col-12" id="InProgressTaskSection">
                 <h2>In progress</h2>
-                
-            </div>
-            
-            <div class="col-lg-3 col=md-6 col-12" id="Review">
-                <h2>Under review</h2>
-            </div>
-            
-            <div class="col-lg-3 col=md-6 col-12" id="Completed">
+                <div id="InProgress">
+                    <!-- Where the tasks with the InProgress status will go -->
+                </div>
+            </div> 
+
+
+            <div class="col-lg-3 col=md-6 col-12" id="ReviewTaskSection">
+                <h2>Under Review</h2>
+                <div id="Review">
+                    <!-- Where the tasks with the Review status will go -->
+                </div>
+            </div> 
+
+            <div class="col-lg-3 col=md-6 col-12" id="CompletedTaskSection">
                 <h2>Completed</h2>
-            </div>
-          <!-- Where the task cards will go -->
+                <div id="Completed">
+                    <!-- Where the tasks with the Completed status will go -->
+                </div>
+            </div> 
+
         </div>
     </div>
 
