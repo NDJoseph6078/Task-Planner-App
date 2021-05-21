@@ -12,7 +12,7 @@ document.querySelector('#storeTaskBtn').addEventListener('click', function () {
   let description = descriptionInput.value
   let assignedTo = assignedToInput.value
   let dueDate = dueDateInput.value
-  dueDate = (new Date(dueDate)).toLocaleDateString();
+  dueDate = (new Date(dueDate)).toLocaleDateString("en-GB");
   let status = statusInput.value
 
 
@@ -73,16 +73,33 @@ taskManager = {
     console.log(`Task added`)
   },
 
-  deleteTask(taskID){
-    this.taskList.splice(this.findID(taskID),1);
+  deleteTask(){
+    this.taskList.splice(this.findID(),1);
     this.updateLocalStorage();
     this.displayCards();
     console.log(this.taskList);
     console.log(i);
   },
 
-  updateTask(taskID, status){
+  updateTask(){
+    let allTasks = this.taskList;
+    let currentTask = allTasks.splice(this.findID(),1)
+    console.log(currentTask)
 
+    console.log(currentTask[0])
+    assignedByInput.value = currentTask[0].taskAssignedBy;
+    descriptionInput.value = currentTask[0].taskDescription;
+    assignedToInput.value = currentTask[0].taskAssignedTo;
+    console.log(currentTask[0].taskDueDate)
+    dueDateInput.value = this.dateFormatToYMD(currentTask[0].taskDueDate);
+    console.log(dueDateInput.value)
+    statusInput.value = currentTask[0].taskStatus;
+  },
+  // A method that converts the date from dd/mm/yyyy to yyyy-mm-dd
+  dateFormatToYMD(dateFieldValue){
+    let  date = dateFieldValue;
+    let convertedDate = date.split("/").reverse().join("-");
+    return convertedDate;
   },
   // A method that finds the index for the key taskID in the taskArray
   findID(targetID){
@@ -138,7 +155,7 @@ taskManager = {
         <div  class="list-group-item list-group-item-action ">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">Task</h5>
-            <small>3 days ago</small>
+            <small></small>
           </div>
         </div>
         <div  class="list-group-item list-group-item-action">
@@ -171,9 +188,8 @@ taskManager = {
           </div>
           <p class="mb-1">${status}</p>
         </div>
-        <button class="btn btn-danger" id="deleteTaskBtn" onclick="taskManager.deleteTask()">Delete task</button>
-
-        
+        <button class="btn btn-primary" id="editTaskBtn" onclick="taskManager.updateTask()">Edit task</button>
+        <button class="btn btn-danger" id="deleteTaskBtn" onclick="taskManager.deleteTask()">Delete task</button>        
       </div>`;
   },
   // Creates a summarry card using the data stored in local storage
