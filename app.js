@@ -77,27 +77,28 @@ taskManager = {
 
   // updateTask(assignedBy, description, assignedTo, dueDate, status){
   //   const taskId = currentlyEditingTask;
+  //   console.log(this.taskID)
 
   //   let taskObject = (assignedBy, description, assignedTo, dueDate, status);
-  //   this.taskList.splice(0, taskObject)
-  //   this.updateLocalStorage();
+  //   this.taskList.splice((this.findID(Task.id)+1), taskObject)
+  //   console.log(this.taskList)
+  //   // this.updateLocalStorage();
   //   // this.displayCards();
   // },
-  // Puts the data from the card you pressed the edit button on, into the form fields and runs the toggleButtonSate method
-
   
-  displayTaskToUpdateInForm(){
-    let allTasks = this.taskList;
-    let currentTask = allTasks.splice(this.findID(),1)
-
-    assignedByInput.value = currentTask[0].taskAssignedBy;
-    descriptionInput.value = currentTask[0].taskDescription;
-    assignedToInput.value = currentTask[0].taskAssignedTo;
-    dueDateInput.value = this.dateFormatToYMD(currentTask[0].taskDueDate); //Converts the date from dd/mm/yyyy to yyyy-mm-dd
-    statusInput.value = currentTask[0].taskStatus;
-
-    // toggleButtonState("edit");
-  },
+  // Puts the data from the card you pressed the edit button on, into the form fields and runs the toggleButtonSate method
+  // displayTaskToUpdateInForm(){
+  //   let allTasks = this.taskList;
+  //   let currentTask = allTasks.splice(this.findID(),1)
+  //   console.log(currentTask[0].dueDate);
+    
+  //   assignedByInput.value = currentTask[0].assignedBy;
+  //   descriptionInput.value = currentTask[0].description;
+  //   assignedToInput.value = currentTask[0].assignedTo;
+  //   dueDateInput.value = this.dateFormatToYMD(currentTask[0].dueDate); //Converts the date from dd/mm/yyyy to yyyy-mm-dd
+  //   statusInput.value = currentTask[0].status;
+  //   toggleButtonState("edit");
+  // },
   // A method that converts the date from dd/mm/yyyy to yyyy-mm-dd
   dateFormatToYMD(dateFieldValue){
     let  date = dateFieldValue;
@@ -189,14 +190,14 @@ taskManager = {
           </div>
           <p class="mb-1">${task.status}</p>
         </div>
-        <button class="btn btn-primary" id="editTaskBtn" onclick="taskManager.displayTaskToUpdateInForm()">Edit task</button>
+       <!--  <button class="btn btn-primary" id="editTaskBtn" onclick="taskManager.displayTaskToUpdateInForm()">Edit task</button> -->
         <button class="btn btn-danger" id="deleteTaskBtn" onclick="taskManager.deleteTask(${task.id})">Delete task</button>        
       </div>`;
   },
   // Creates a summarry card using the data stored in local storage
   createTaskSummary(task){
     summaryCard = document.getElementById("taskSummaryCard");
-    summaryCard.innerHTML += `<a href="#taskID-${task.taskId}" class="list-group-item list-group-item-action ">
+    summaryCard.innerHTML += `<a href="#taskID-${task.id}" class="list-group-item list-group-item-action ">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">Task for ${task.assignedTo}</h5>
       <small>Due ${task.dueDate}</small>
@@ -280,6 +281,8 @@ function toggleButtonState(state){
 //     alert(errorString);
 //   }
 // })
+
+// Sets the taskList variable and taskID variables inside the taskManager object equal what is stored in local storage under the keys taskArray and counter respectively
 taskManager.taskList = JSON.parse(localStorage.getItem("taskArray")) || [];
 taskManager.taskID = JSON.parse(localStorage.getItem("counter")) || 0;
 
