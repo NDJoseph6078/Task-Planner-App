@@ -1,9 +1,26 @@
 body{
-    word-wrap: break-word;    
+    word-wrap: break-word;  
+    background-image: url(https://source.unsplash.com/3oX_10TS294);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    object-fit: cover;  
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100px;
 }
 .list-group{
     margin: 3%;
 }
 .row h2{
     text-align: center;
+    color: white;
+}
+legend{
+    color: white;
+    font-size: 500px;
+}
+label{
+    color: white;
+}
+h1{
+    color: white;
 }

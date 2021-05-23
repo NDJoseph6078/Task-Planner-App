@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task Planner App</title>
 
     <!-- Link to my own css -->
     <link rel="stylesheet" href="styles.css">
     <!-- Link to Bootstrap stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- Link to google font for Roboto -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -18,40 +21,44 @@
         <div class="row">
             <div class="col-12 col-lg-6">
                 <form> 
-                    <!-- Person who created the task name input  -->
-                    <div class="form-group">
-                      <label for="inputAssignedBy">Assigned By</label>
-                      <input name = "assignedBy" type="text" class="form-control" id="inputAssignedBy" placeholder="Name of person assigning the task">
-                    </div>
-                    <!-- Description of task input -->
-                    <div class="form-group">
-                        <label for="inputDesc">Description</label>
-                        <input name="description" type="text" class="form-control" id="inputDesc" placeholder="A short description of the task being set">
-                    </div>
-                    <!-- Person the task is assigned to input -->
-                    <div class="form-group">
-                        <label for="inputAssignedTo">Assigned To</label>
-                        <input name="assignedTo" type="text" class="form-control" id="inputAssignedTo" placeholder="Name of person the task is being assigned to">
-                    </div>
-                    <!-- Due date input -->
-                    <div class="form-group">
-                        <label for="inputDueDate">Due Date</label>
-                        <input name="dueDate" type="date" class="form-control" id="inputDueDate">
-                    </div>
-                    <!-- Task status drop down -->
-                    <div class="form-group">
-                        <label for="inputStatus">Status</label>
-                        <select name="status" id="inputStatus" class="form-control">
-                            <option value="ToDo">TODO</option>
-                            <option value="InProgress">In Progress</option>
-                            <option value="Review">Review</option>
-                            <option value="Completed">Completed</option>
-                            
-                        </select>
-                    </div>
-                    <!-- Button to submit the input data -->
-                    <button id="storeTaskBtn" type="button" class="btn btn-primary">Submit</button>
-                    <button id="editTaskBtn" type="button" class="btn btn-secondary" hidden>Edit</button>
+                    <fieldset>
+                        <legend>Create New Task</legend>
+                        <!-- Person who created the task name input  -->
+                        <div class="form-group">
+                            <label for="inputAssignedBy">Assigned By</label>
+                            <input name = "assignedBy" type="text" class="form-control" id="inputAssignedBy" placeholder="Name of person assigning the task">
+                        </div>
+                        <!-- Description of task input -->
+                        <div class="form-group">
+                            <label for="inputDesc">Description</label>
+                            <input name="description" type="text" class="form-control" id="inputDesc" placeholder="A short description of the task being set">
+                        </div>
+                        <!-- Person the task is assigned to input -->
+                        <div class="form-group">
+                            <label for="inputAssignedTo">Assigned To</label>
+                            <input name="assignedTo" type="text" class="form-control" id="inputAssignedTo" placeholder="Name of person the task is being assigned to">
+                        </div>
+                        <!-- Due date input -->
+                        <div class="form-group">
+                            <label for="inputDueDate">Due Date</label>
+                            <input name="dueDate" type="date" class="form-control" id="inputDueDate">
+                        </div>
+                        <!-- Task status drop down -->
+                        <div class="form-group">
+                            <label for="inputStatus">Status</label>
+                            <select name="status" id="inputStatus" class="form-control">
+                                <option value="ToDo">TODO</option>
+                                <option value="InProgress">In Progress</option>
+                                <option value="Review">Review</option>
+                                <option value="Completed">Completed</option>
+                                
+                            </select>
+                        </div>
+                        <!-- Button to submit the input data -->
+                        <button id="storeTaskBtn" type="button" class="btn btn-primary">Create Task</button>
+                        <!-- <button id="saveChangesBtn" type="button" class="btn btn-success" hidden>Edit</button> -->
+                    </fieldset>
+                    
                 </form>
             </div>
 
@@ -64,10 +71,10 @@
     </div>
 
     <div class="container">
-        <h1>Task sections</h1>
+        <h1>Tasks</h1>
         <div class="row">
             
-            <div class="col-lg-3 col=md-6 col-12" id="ToDoTaskSection">
+            <div class="box col-lg-3 col=md-6 col-12" id="ToDoTaskSection">
                 <h2>To Do</h2>
                 <div id="ToDo">
                     <!-- Where the tasks with the ToDo status will go -->
@@ -75,7 +82,7 @@
             </div> 
 
             
-            <div class="col-lg-3 col=md-6 col-12" id="InProgressTaskSection">
+            <div class="box col-lg-3 col=md-6 col-12" id="InProgressTaskSection">
                 <h2>In progress</h2>
                 <div id="InProgress">
                     <!-- Where the tasks with the InProgress status will go -->
@@ -83,14 +90,14 @@
             </div> 
 
 
-            <div class="col-lg-3 col=md-6 col-12" id="ReviewTaskSection">
+            <div class="box col-lg-3 col=md-6 col-12" id="ReviewTaskSection">
                 <h2>Under Review</h2>
                 <div id="Review">
                     <!-- Where the tasks with the Review status will go -->
                 </div>
             </div> 
 
-            <div class="col-lg-3 col=md-6 col-12" id="CompletedTaskSection">
+            <div class="box col-lg-3 col=md-6 col-12" id="CompletedTaskSection">
                 <h2>Completed</h2>
                 <div id="Completed">
                     <!-- Where the tasks with the Completed status will go -->
